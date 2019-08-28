@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zyao.qanda.model.User;
 
-@Controller
+//@Controller
 public class IndexController {
 	
 	
