@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<pre>
+	<!-- comment? -->
+	<span th:text="Hooooola"></span>
+	colors:<span th:text="${colors}"></span>
+	<span>注释:循环怎么办</span>
+	
+	<span th:text="${user.name}"></span>
+	
+	<span th:text="${v1}"></span>
+</pre>
+	<span th:text="${user.name}"></span>
+	<span th:text="${v1}"></span>
+
+	<div th:each="color:${colors}">
+		<span th:text="${color}"></span>
+	</div>
+	
+	<div th:each="map:${map}">
+		<span th:text="${map.key}"></span>
+		<span th:text="${map.value}"></span>
+	</div>
+
+	<span>注：这里的name是getName()方法</span>
+	
+	
+	<span th:text="${user.getName()}"></span>
+	<span th:text="${v1}"></span>
+	
+</body>
+</html>
