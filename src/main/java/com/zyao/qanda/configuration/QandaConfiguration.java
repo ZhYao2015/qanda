@@ -6,6 +6,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
+import com.zyao.qanda.interceptor.LoginRequiredInterceptor;
 import com.zyao.qanda.interceptor.PassportInterceptor;
 
 @Component
@@ -13,6 +14,9 @@ public class QandaConfiguration extends WebMvcConfigurationSupport {
     
 	@Autowired
 	PassportInterceptor passportInterceptor;
+	
+	@Autowired
+	LoginRequiredInterceptor LoginRequiredInterceptor; 
 	
 	/**
      * SpringBoot2 必须重写该方法，否则静态资源无法访问
@@ -29,8 +33,9 @@ public class QandaConfiguration extends WebMvcConfigurationSupport {
 
 	@Override
 	protected void addInterceptors(InterceptorRegistry registry) {
-		//这两行的顺序。。。？
+		//这三行的顺序。。。？
 		registry.addInterceptor(passportInterceptor);
+		registry.addInterceptor(LoginRequiredInterceptor).addPathPatterns("/user/**");
 		super.addInterceptors(registry);
 		
 	}

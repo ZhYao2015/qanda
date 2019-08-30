@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +29,17 @@ public class LoginController {
 	//use HTTP POST Method
 	@RequestMapping(path= {"/reg"}, method=RequestMethod.POST)
 	public String reg(Model model,@RequestParam(value="username") String username,
-			@RequestParam(value="password") String password) {
+			@RequestParam(value="password") String password,
+			@RequestParam(value="next",required=false) String next) {
 		Map<String,String> map=userService.register(username, password);
 		try {
 		if(map.containsKey("msg")) {
 			model.addAttribute("msg",map.get("msg"));
 			return "login";
+		}
+		
+		if(StringUtils.isNotBlank(next)) {
+			return "redirect:"+next;
 		}
 		
 		return "redirect:/";
@@ -47,6 +53,7 @@ public class LoginController {
 	@RequestMapping(path= {"/login"}, method=RequestMethod.POST)
 	public String login(Model model,@RequestParam(value="username") String username,
 			@RequestParam(value="password") String password,
+			@RequestParam(value="next",required=false) String next, 
 			@RequestParam(value="rememberme",defaultValue="false") boolean rememberme,
 			HttpServletResponse response) {
 		Map<String,String> map=userService.login(username, password);
@@ -55,6 +62,9 @@ public class LoginController {
 				Cookie cookie=new Cookie("ticket",map.get("ticket"));
 				cookie.setPath("/");
 				response.addCookie(cookie);
+				if(StringUtils.isNotBlank(next)) {
+					return "redirect:"+next;
+				}
 				return "redirect:/";
 				
 			}else {
@@ -69,7 +79,9 @@ public class LoginController {
 	}
 	
 	@RequestMapping(path= {"/reglogin"}, method=RequestMethod.GET)
-	public String reg(Model model) {
+	public String reg(Model model,
+			@RequestParam(value="next",required=false) String next) {
+			model.addAttribute("next",next);
 			return "login";
 	}
 	

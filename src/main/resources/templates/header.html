@@ -60,9 +60,8 @@ style=""  xmlns:th="http://www.thymeleaf.org">
             </ul>
 	       	</div>
         </div>
-        #if ($user)
-        <button class="zu-top-add-question" id="zu-top-add-question">提问</button>
-        #end
+        
+        <button class="zu-top-add-question" id="zu-top-add-question" th:if="${user}">提问</button>
         <div role="search" id="zh-top-search" class="zu-top-search">
             <form method="GET" action="/search" id="zh-top-search-form" class="zu-top-search-form">
                 <input type="hidden" name="type" value="content">
@@ -78,11 +77,11 @@ style=""  xmlns:th="http://www.thymeleaf.org">
                 <li class="zu-top-nav-li " id="zh-top-nav-explore">
                     <a class="zu-top-nav-link" href="/">发现</a>
                 </li>
-                #if ($user)
-                <li class="top-nav-noti zu-top-nav-li ">
+            
+                <li class="top-nav-noti zu-top-nav-li " th:if="${user}">
                     <a class="zu-top-nav-link" href="#" id="zh-top-nav-count-wrap" role="button"><span class="mobi-arrow"></span>消息<span id="zh-top-nav-count" class="zu-top-nav-count zg-noti-number" style="display: none;">0</span></a>
                 </li>
-                #end
+
             </ul>
             <div class="zu-top-nav-live zu-noti7-popup zg-r5px no-hovercard" id="zh-top-nav-live-new" role="popup" tabindex="0">
                 <div class="zu-top-nav-live-inner zg-r5px">

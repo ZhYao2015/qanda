@@ -5,8 +5,26 @@ import java.security.MessageDigest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.alibaba.fastjson.JSONObject;
+
 public class QandaUtils {
 	private static final Logger logger=LoggerFactory.getLogger(QandaUtils.class);
+	
+	
+	public static int ANONYMOUS_USER=3;
+	
+	public static String getJSONString(int code) {
+		JSONObject json=new JSONObject();
+		json.put("code",code);
+		return json.toString();
+	}
+	
+	public static String getJSONString(int code,String msg) {
+		JSONObject json=new JSONObject();
+		json.put("code",code);
+		json.put("msg",msg);
+		return json.toString();
+	}
 	
 	public static String md5(String key) {
 	        char hexDigits[] = {
