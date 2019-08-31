@@ -79,6 +79,7 @@ public class SensitiveService implements InitializingBean{
 		int begin=0;
 		int position=0;
 		//算法问题 待补全 
+		return null;
 	}
 	
 	private void addWord(String lineTxt) {

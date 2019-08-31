@@ -27,6 +27,10 @@ public class QuestionService {
 		return questionDao.addQuestion(question)>0?question.getId():0;
 	}
 	
+	public Question getById(int questionId) {
+		return questionDao.selectQuestionById(questionId);
+	}
+	
 	public List<Question> getLastestQuestions(int userId,int offset,int limit){
 		return questionDao.selectLatestQuestions(userId, offset, limit);
 	}
