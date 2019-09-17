@@ -22,6 +22,6 @@ public class MessageService {
 	}
 	
 	public List<Message> getConverstaionDetail(String conversationId){
-		return messageDao.getConversationDetail(converstationId);
+		return messageDao.getConversationDetail(conversationId);
 	}
 }

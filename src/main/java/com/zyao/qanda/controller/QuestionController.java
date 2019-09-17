@@ -21,6 +21,7 @@ import com.zyao.qanda.model.HostHolder;
 import com.zyao.qanda.model.Question;
 import com.zyao.qanda.model.ViewObject;
 import com.zyao.qanda.service.CommentService;
+import com.zyao.qanda.service.LikeService;
 import com.zyao.qanda.service.QuestionService;
 import com.zyao.qanda.service.UserService;
 import com.zyao.qanda.utils.QandaUtils;
@@ -40,6 +41,9 @@ public class QuestionController {
 
 	@Autowired
 	CommentService commentService;
+	
+	@Autowired
+	LikeService likeService;
 	
 	
 	@RequestMapping(value="/question/add",method= {RequestMethod.POST})
@@ -83,11 +87,21 @@ public class QuestionController {
 			ViewObject vo=new ViewObject();
 			vo.set("comment", comment);
 			vo.set("user", userService.getUser(comment.getUserId()));
+			
+			if(hostHolder.getUser()==null) {
+				vo.set("liked", 0);
+			}else {
+				vo.set("liked", likeService.getLikeStatus(userId, entityType, entityId));
+			}
+			vo.set("likeCount", likeService.getLikeCount(EntityType.ENTITY_COMMENT,));
+
+			
+			
 			comments.add(vo);
 		}
 		
 		model.addAttribute("comments", comments);
 		
-		return "detail";
+		return "detail"; 
 	}
 }
